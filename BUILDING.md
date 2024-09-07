@@ -123,7 +123,8 @@ While still in the project root:
 
 1) `cd .. && mkdir --parents rpcs3_build && cd rpcs3_build`
 2) `cmake ../rpcs3/ && make` or `CXX=g++-13 CC=gcc-13 cmake ../rpcs3/ && make` to force these compilers
-3) Run RPCS3 with `./bin/rpcs3`
+3) For AARCH64 use ```cmake -DCMAKE_TOOLCHAIN_FILE=../aarch64-toolchain.cmake ../rpcs3/ && make``` 
+4) Run RPCS3 with `./bin/rpcs3`
 
 When using GDB, configure it to ignore SIGSEGV signal (`handle SIGSEGV nostop noprint`).
 If desired, use the various build options in [CMakeLists](https://github.com/RPCS3/rpcs3/blob/master/CMakeLists.txt).
