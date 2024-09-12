@@ -174,7 +174,7 @@ namespace gui
 			}
 			return res;
 		}
-		
+
 		QColor get_foreground_color()
 		{
 			QLabel dummy_color;
@@ -191,10 +191,7 @@ namespace gui
 
 		QColor get_label_color(const QString& object_name, const QColor& fallback_light, const QColor& fallback_dark, QPalette::ColorRole color_role)
 		{
-			if (!gui::custom_stylesheet_active || !gui::stylesheet.contains(object_name))
-			{
-				return dark_mode_active() ? fallback_dark : fallback_light;
-			}
+
 
 			QLabel dummy_color;
 			dummy_color.setObjectName(object_name);

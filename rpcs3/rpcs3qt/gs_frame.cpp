@@ -38,7 +38,6 @@
 #else
 #ifdef HAVE_WAYLAND
 #include <QGuiApplication>
-#include <qpa/qplatformnativeinterface.h>
 #endif
 #ifdef HAVE_X11
 #include <X11/Xlib.h>
@@ -720,18 +719,18 @@ display_handle_t gs_frame::handle() const
 #elif defined(__APPLE__)
 	return reinterpret_cast<void*>(this->winId()); //NSView
 #else
-#ifdef HAVE_WAYLAND
-	QPlatformNativeInterface *native = QGuiApplication::platformNativeInterface();
-	struct wl_display *wl_dpy = static_cast<struct wl_display *>(
-		native->nativeResourceForWindow("display", NULL));
-	struct wl_surface *wl_surf = static_cast<struct wl_surface *>(
-		native->nativeResourceForWindow("surface", const_cast<QWindow*>(static_cast<const QWindow*>(this))));
-	if (wl_dpy != nullptr && wl_surf != nullptr)
-	{
-		return std::make_pair(wl_dpy, wl_surf);
-	}
-	else
-#endif
+// #ifdef HAVE_WAYLAND
+	//QPlatformNativeInterface *native = QGuiApplication::platformNativeInterface();
+	// struct wl_display *wl_dpy = static_cast<struct wl_display *>(
+		// native->nativeResourceForWindow("display", NULL));
+	// struct wl_surface *wl_surf = static_cast<struct wl_surface *>(
+		// native->nativeResourceForWindow("surface", const_cast<QWindow*>(static_cast<const QWindow*>(this))));
+	// if (wl_dpy != nullptr && wl_surf != nullptr)
+	// {
+		// return std::make_pair(wl_dpy, wl_surf);
+	// }
+	// else
+// #endif
 #ifdef HAVE_X11
 	{
 		return std::make_pair(XOpenDisplay(0), static_cast<ulong>(this->winId()));

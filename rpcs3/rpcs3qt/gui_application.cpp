@@ -318,7 +318,6 @@ void gui_application::InitializeConnects()
 		connect(this, &gui_application::OnEnableDiscEject, m_main_window, &main_window::OnEnableDiscEject);
 		connect(this, &gui_application::OnEnableDiscInsert, m_main_window, &main_window::OnEnableDiscInsert);
 
-		connect(QGuiApplication::styleHints(), &QStyleHints::colorSchemeChanged, this, [this](){ OnChangeStyleSheetRequest(); });
 	}
 
 #ifdef WITH_DISCORD_RPC

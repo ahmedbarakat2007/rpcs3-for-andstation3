@@ -81,10 +81,7 @@
 
 #include "ui_main_window.h"
 
-#if QT_CONFIG(permissions)
 #include <QGuiApplication>
-#include <QPermissions>
-#endif
 
 LOG_CHANNEL(gui_log, "GUI");
 
@@ -109,28 +106,7 @@ extern void process_qt_events()
 
 extern void check_microphone_permissions()
 {
-#if QT_CONFIG(permissions)
-	Emu.BlockingCallFromMainThread([]()
-	{
-		QMicrophonePermission permission;
-		switch (qApp->checkPermission(permission))
-		{
-		case Qt::PermissionStatus::Undetermined:
-			gui_log.notice("Requesting microphone permission");
-			qApp->requestPermission(permission, []()
-			{
-				check_microphone_permissions();
-			});
-			break;
-		case Qt::PermissionStatus::Denied:
-			gui_log.error("RPCS3 has no permissions to access microphones on this device.");
-			break;
-		case Qt::PermissionStatus::Granted:
-			gui_log.notice("Microphone permission granted");
-			break;
-		}
-	});
-#endif
+
 }
 
 main_window::main_window(std::shared_ptr<gui_settings> gui_settings, std::shared_ptr<emu_settings> emu_settings, std::shared_ptr<persistent_settings> persistent_settings, QWidget *parent)

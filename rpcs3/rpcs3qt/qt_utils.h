@@ -148,15 +148,7 @@ namespace gui
 		// Convert an arbitrary count of bytes to a readable format using global units (KB, MB...)
 		QString format_byte_size(usz size);
 
-		static inline Qt::ColorScheme color_scheme()
-		{
-			return QGuiApplication::styleHints()->colorScheme();
-		}
-
-		static inline bool dark_mode_active()
-		{
-			return color_scheme() == Qt::ColorScheme::Dark;
-		}
+		//return color_scheme() == Qt::ColorScheme::Dark;
 
 		template <typename T>
 		void stop_future_watcher(QFutureWatcher<T>& watcher, bool cancel, std::shared_ptr<atomic_t<bool>> cancel_flag = nullptr)
