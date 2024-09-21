@@ -92,8 +92,8 @@ static const bool s_init_locale = []()
 
 static semaphore<> s_qt_init;
 
-static atomic_t<bool> s_headless = false;
-static atomic_t<bool> s_no_gui = false;
+static atomic_t<bool> s_headless = true;
+static atomic_t<bool> s_no_gui = true;
 static atomic_t<char*> s_argv0 = nullptr;
 static bool s_is_error_launch = false;
 
