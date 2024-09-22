@@ -1018,19 +1018,15 @@ int main(int argc, char** argv)
 	{
 		gui_app->setAttribute(Qt::AA_DontCheckOpenGLContextThreadAffinity);
 
-		gui_app->SetShowGui(!s_no_gui);
+		gui_app->SetShowGui(false);
 		gui_app->SetUseCliStyle(use_cli_style);
 		gui_app->SetWithCliBoot(parser.isSet(arg_installfw) || parser.isSet(arg_installpkg) || !parser.positionalArguments().isEmpty());
 		gui_app->SetActiveUser(active_user);
+		gui_app->SetStartGamesFullscreen(true);
 
 		if (parser.isSet(arg_fullscreen))
 		{
-			if (!s_no_gui)
-			{
-				report_fatal_error(fmt::format("The option '%s' can only be used in combination with '%s'.", arg_fullscreen, arg_no_gui));
-			}
-
-			gui_app->SetStartGamesFullscreen(true);
+			//do nothing
 		}
 
 		if (parser.isSet(arg_gs_screen))
@@ -1209,7 +1205,14 @@ int main(int argc, char** argv)
 		{
 			if (s_no_gui)
 			{
-				report_fatal_error("Cannot perform installation in no-gui mode!");
+				if (parser.isSet(arg_installfw))
+				{
+					gui_app->InstallPup(parser.value(installfw_option));
+				}
+				else
+				{
+					gui_app->InstallPackages({parser.value(installpkg_option)});
+				}
 			}
 
 			if (gui_app->m_main_window)
